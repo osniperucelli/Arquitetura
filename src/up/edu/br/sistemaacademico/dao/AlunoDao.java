@@ -8,6 +8,7 @@ import javax.persistence.Persistence;
 import javax.persistence.Query;
 
 import up.edu.br.sistemaacademico.entidades.Aluno;
+import up.edu.br.sistemaacademico.entidades.Professor;
 
 public class AlunoDao implements Dao<Aluno> {
 	
@@ -19,10 +20,17 @@ public class AlunoDao implements Dao<Aluno> {
 	}
 	
 	public void editar(Aluno aluno) {
-		
+		EntityManager em = Conexao.getInstance().createEntityManager();
+		em.getTransaction().begin();
+		em.merge(aluno);
+		em.getTransaction().commit();
 	}
 	
 	public void excluir(Aluno aluno) {
+		EntityManager em = Conexao.getInstance().createEntityManager();
+		em.getTransaction().begin();
+		em.remove(em.merge(aluno));
+		em.getTransaction().commit();
 		
 	}
 	
@@ -38,4 +46,18 @@ public class AlunoDao implements Dao<Aluno> {
 		return em.find(Aluno.class, id);
 	}
 
+	@Override
+	public Aluno buscar(Long id) {
+		EntityManager em = Conexao.getInstance().createEntityManager();
+		return em.find(Aluno.class, id);
+	}
+
+	@Override
+	public Professor buscarProf(Long id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	
+	
 }

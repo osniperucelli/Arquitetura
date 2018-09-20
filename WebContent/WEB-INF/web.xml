@@ -53,9 +53,14 @@
         </init-param>
         <init-param>
             <param-name>swagger.api.basepath</param-name>
-            <param-value>http://localhost:8080/sistemaacademico201803/rest/</param-value>
+            <!-- <param-value>http://localhost:8080/sistemaacademico201803/rest/</param-value> -->
+            <param-value>http://node171310-env-6656686.jelasticlw.com.br/rest/</param-value> 
         </init-param>
         <load-on-startup>2</load-on-startup>
     </servlet>
+    
+       
+    
+    
     
 </web-app>

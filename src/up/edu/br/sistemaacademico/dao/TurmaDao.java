@@ -4,57 +4,53 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
-import javax.persistence.Persistence;
-
 
 import up.edu.br.sistemaacademico.entidades.Aluno;
 import up.edu.br.sistemaacademico.entidades.Professor;
 import up.edu.br.sistemaacademico.entidades.Turma;
 
-public class ProfessorDao implements Dao<Professor> {
+public class TurmaDao implements Dao<Turma> {
 
 	@Override
-	public void adicionar(Professor t) {
+	public void adicionar(Turma turma) {
 		EntityManager em = Conexao.getInstance().createEntityManager();		
 		em.getTransaction().begin();
-		em.persist(t);
+		em.persist(turma);
 		em.getTransaction().commit();		
 	}
-
+	
+	
 	@Override
-	public void editar(Professor t) {
+	public void editar(Turma turma) {
 		EntityManager em = Conexao.getInstance().createEntityManager();
 		em.getTransaction().begin();
-		em.merge(t);
-		em.getTransaction().commit();		
+		 em.merge(turma);
+		 em.getTransaction().commit();		
 	}
-
+	
+	
 	@Override
-	public void excluir(Professor t) {
+	public void excluir(Turma turma) {
 		EntityManager em = Conexao.getInstance().createEntityManager();
 		em.getTransaction().begin();
-		em.remove(em.merge(t));
+		em.remove(em.getReference(Turma.class, turma.getId()));
 		em.getTransaction().commit();		
 	}
-
+	
 	@Override
-	public List<Professor> listar() {
+	public List<Turma> listar() {
 		EntityManager em = Conexao.getInstance().createEntityManager();
-		Query q = em.createQuery("select t from Professor t");
+		Query q = em.createQuery("select a from Turma a");
 		return q.getResultList();
 	}
-
+	
 	@Override
-	public Professor buscarPorId(Long id) {
+	public Turma buscarPorId(Long id) {
 		EntityManager em = Conexao.getInstance().createEntityManager();
-		return em.find(Professor.class, id);
+		return em.find(Turma.class, id);
 	}
 
-	@Override
-	public Professor buscarProf (Long id) {
-		EntityManager em = Conexao.getInstance().createEntityManager();
-		return em.find(Professor.class, id);
-	}
+	
 
 	@Override
 	public Aluno buscar(Long id) {
@@ -63,4 +59,10 @@ public class ProfessorDao implements Dao<Professor> {
 	}
 
 
+	@Override
+	public Professor buscarProf(Long id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
 }

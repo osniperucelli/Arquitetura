@@ -1,6 +1,6 @@
 package up.edu.br.sistemaacademico.rest;
 
-import java.util.List;   
+import java.util.List;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -12,67 +12,63 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import org.apiguardian.api.API;
-
 import io.swagger.annotations.Api;
-import up.edu.br.sistemaacademico.dao.AlunoDao;
 import up.edu.br.sistemaacademico.dao.Dao;
 import up.edu.br.sistemaacademico.dao.FabricaDao;
+import up.edu.br.sistemaacademico.dao.TurmaDao;
 import up.edu.br.sistemaacademico.entidades.Aluno;
+import up.edu.br.sistemaacademico.entidades.Turma;
 import up.edu.br.sistemaacademico.servico.AlunoServico;
 import up.edu.br.sistemaacademico.servico.ServicoException;
+import up.edu.br.sistemaacademico.servico.TurmaServico;
 
 
-//http://localhost:8080/rest/alunorest
-
-@Path("/alunorest")
-@Api(value="/alunorest")
-public class AlunoRest {
-
+@Path("/turmarest/")
+@Api(value="/turmarest/")
+public class TurmaRest {
 
 	@GET
-	@Produces(MediaType.APPLICATION_JSON)
-	public List<Aluno> listar()
+	@Produces(javax.ws.rs.core.MediaType.APPLICATION_JSON)
+	public List<Turma> listar()
 	{
-		List<Aluno> alunos = new AlunoDao().listar();
-			return alunos;
+		List<Turma> turmas = new TurmaDao().listar();
+		return turmas;
 	}
 	
 	@POST
-	@Consumes(MediaType.APPLICATION_JSON)
-	public void adicionar(Aluno aluno) {
+	@Consumes(javax.ws.rs.core.MediaType.APPLICATION_JSON)
+	public void adicionar(Turma turma)
+	{
+		System.out.println(turma.toString());
 		try {
-			new AlunoServico().adicionar(aluno);
+			new TurmaServico().adicionar(turma);
 		}catch (ServicoException e) {
+			// TODO: handle exception
 			e.printStackTrace();
 		}
-	}
-	
+	}	
 	
 	@PUT
 	@Consumes(MediaType.APPLICATION_JSON)
-	public void editar(Aluno aluno) {
+	public void editar(Turma turma) {
 		try {
-			new AlunoServico().editar(aluno);
+			new TurmaServico().editar(turma);
 		}catch (ServicoException e) {
 			e.printStackTrace();
 		}	
 	}
-
-	
 	
 	@DELETE
 	@Path("{id}")
-	@Consumes(MediaType.APPLICATION_JSON) // FORM_URLENCODED)
+	@Consumes(MediaType.APPLICATION_JSON)
 	public void excluir(@PathParam("id")Long id) {
 		try {
-			Dao<Aluno> alunoDao = FabricaDao.createDaoAluno();
-			Aluno aluno = alunoDao.buscarPorId(id);
-			alunoDao.excluir(aluno);			
+			Dao<Turma> turmaDao = FabricaDao.createDaoTurma();
+			Turma turma = turmaDao.buscarPorId(id);
+			turmaDao.excluir(turma);			
 		}catch (Exception e) {
 			e.printStackTrace();
 		}	
-	}
-	
+	}	
 	
 }

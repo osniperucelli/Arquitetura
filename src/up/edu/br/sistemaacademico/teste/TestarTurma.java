@@ -1,6 +1,6 @@
 package up.edu.br.sistemaacademico.teste;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;  
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -12,58 +12,59 @@ import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
 import up.edu.br.sistemaacademico.dao.AlunoDao;
+import up.edu.br.sistemaacademico.dao.TurmaDao;
 import up.edu.br.sistemaacademico.entidades.Aluno;
+import up.edu.br.sistemaacademico.entidades.Turma;
 import up.edu.br.sistemaacademico.servico.AlunoServico;
 import up.edu.br.sistemaacademico.servico.ServicoException;
-
+import up.edu.br.sistemaacademico.servico.TurmaServico;
 
 @FixMethodOrder(MethodSorters.JVM)
-public class TestarAluno {
-	
-	static long id;
+public class TestarTurma {
+		
+static long id;
 	
 	@Test
-	public void deveriaCadastrarUmAluno() {
-		Aluno a = new Aluno();
-		a.setId(null);
-		a.setNome("Cleverson");
-		a.setMatricula("12345");
-		
+	public void deveriaCadastrarUmaTurma() {
+		Turma turma = new Turma();
+		turma.setId(null);
+		turma.setNome ("Arquitetura de Software");
+	
 		try {
-			new AlunoServico().adicionar(a);
+			new TurmaServico().adicionar(turma);
 		} catch (ServicoException e) {
 			e.printStackTrace();
 		}
 		
-		assertEquals(true, a.getId() != null);
-		id = a.getId();
+		assertEquals(true, turma.getId() != null);
+		id = turma.getId();
 	}
 	
 	@Test
-	public void deveriaListarAlunos() {
-		List<Aluno> alunos = new AlunoDao().listar();
+	public void deveriaListarTurmas() {
+		List<Turma> turmas = new TurmaDao().listar();
 		
-		assertEquals(true, alunos.size() > 0);
+		assertEquals(true, turmas.size() > 0);
 	}
 	
 	
 	
 	@Test
-	public void deveriaAlterarUmAluno() {
+	public void deveriaAlterarUmaTurma() {
 		
-		Aluno a = new AlunoServico().buscar(id);
+		Turma turma = new TurmaServico().buscar(id);
 		
-		a.setNome("ABC");
+		turma.setNome("ABC");
 		
 		try {
-			new AlunoServico().adicionar(a);
+			new TurmaServico().adicionar(turma);
 		} catch (ServicoException e) {			
 			e.printStackTrace();
 		}
 		
-		a = new AlunoServico().buscar(id);
+		turma = new TurmaServico().buscar(id);
 		
-		assertEquals(true,a.getNome().equals("ABC"));
+		assertEquals(true,turma.getNome().equals("ABC"));
 		
 	}
 
@@ -89,4 +90,7 @@ public class TestarAluno {
 	}
 	
 	
+	
+	
+
 }
